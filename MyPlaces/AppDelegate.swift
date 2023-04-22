@@ -2,7 +2,7 @@
 //  AppDelegate.swift
 //  MyPlaces
 //
-//  Created by BLASTA RECORDZ on 19.04.2023.
+//  Created by RAFAEL on 19.04.2023.
 //
 
 import UIKit
