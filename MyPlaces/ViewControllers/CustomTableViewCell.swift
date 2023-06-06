@@ -14,7 +14,6 @@ class CustomTableViewCell: UITableViewCell {
         didSet {
             imageOfPlace.layer.cornerRadius = imageOfPlace.frame.size.height / 2
             imageOfPlace.clipsToBounds = true
-            
         }
     }
     
@@ -26,5 +25,4 @@ class CustomTableViewCell: UITableViewCell {
             cosmosView.settings.updateOnTouch = false
         }
     }
-    //1
 }

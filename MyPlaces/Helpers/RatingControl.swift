@@ -7,10 +7,9 @@
 
 import UIKit
 
-
 @IBDesignable class RatingControl: UIStackView {
     
-    // MARK: Properties
+    // MARK: - Properties
     
     var rating = 0 {
         didSet {
@@ -31,8 +30,7 @@ import UIKit
         }
     }
     
-    
-    // MARK: Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -44,7 +42,7 @@ import UIKit
         setupButtons()
     }
     
-    // MARK: Button Action
+    // MARK: - Button Action
     
     @objc func ratingButtonTapped(button: UIButton) {
       
@@ -58,10 +56,9 @@ import UIKit
         } else {
             rating = selectedRating
         }
-        
     }
     
-    // MARK: Private Methods
+    // MARK: -  Private Methods
     
     private func setupButtons() {
         
@@ -86,7 +83,6 @@ import UIKit
         let highlightedStar = UIImage(named: "highlightedStar",
                                       in: bundle,
                                       compatibleWith: self.traitCollection)
-        
         
         
         for _ in 0..<starCount {
@@ -122,6 +118,4 @@ import UIKit
             button.isSelected = index < rating
         }
     }
-    
-    //1
 }

@@ -22,11 +22,9 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return searchController.isActive && !searchBarIsEmpty
     }
     
-    
     @IBOutlet var tableView: UITableView!
     @IBOutlet var segmentedControl: UISegmentedControl!
     @IBOutlet var reversedSortingButton: UIBarButtonItem!
-    
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -40,9 +38,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         searchController.searchBar.placeholder = "Search"
         navigationItem.searchController = searchController
         definesPresentationContext = true
-        
-        
-        
     }
     
     // MARK: - Table view data source
@@ -59,7 +54,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         return places.count
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as! CustomTableViewCell
         
@@ -67,7 +61,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         //        content.text = restaurantNames[indexPath.row]
         //        content.image = UIImage(named: restaurantNames[indexPath.row])
         //        cell.contentConfiguration = content
-        
         
         let place = isFiltering ? filteredPlaces[indexPath.row] : places[indexPath.row]
         
@@ -87,16 +80,13 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
     }
     
     func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
-        
         if editingStyle == .delete {
             let place = places[indexPath.row]
             StorageManager.deleteObject(place)
             tableView.deleteRows(at: [indexPath], with: .automatic)
         }
     }
-    
-    
-    
+     
     //      MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -111,23 +101,18 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
     }
     
-    
     @IBAction func unwindSegue(_ segue: UIStoryboardSegue) {
-        
         guard let newPlaceVC = segue.source as? NewPlaceViewController else { return }
         
         newPlaceVC.savePlace()
         tableView.reloadData()
     }
     
-    
     @IBAction func sortSelection(_ sender: UISegmentedControl) {
-        
         sorting()
     }
     
     @IBAction func reversedSorting(_ sender: Any) {
-        
         ascendingSorting.toggle()
         
         if ascendingSorting {
@@ -135,13 +120,10 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         } else {
             reversedSortingButton.image = #imageLiteral(resourceName: "ZA")
         }
-        
-        
         sorting()
     }
     
     private func sorting() {
-        
         if segmentedControl.selectedSegmentIndex == 0 { 
             places = places.sorted(byKeyPath: "date", ascending: ascendingSorting)
         } else {
@@ -149,7 +131,6 @@ class MainViewController: UIViewController, UITableViewDataSource, UITableViewDe
         }
         tableView.reloadData()
     }
-    
 }
 
 extension MainViewController: UISearchResultsUpdating {
@@ -157,12 +138,9 @@ extension MainViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         filterContentForSearchText(searchController.searchBar.text!)
     }
-    
     private func filterContentForSearchText(_ searchText: String) {
-        
         filteredPlaces = places.filter("name CONTAINS[c] %@ OR location CONTAINS[c] %@", searchText, searchText)
         
         tableView.reloadData()
     }
-    //1
 }

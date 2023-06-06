@@ -5,9 +5,8 @@
 //  Created by RAFAEL on 22.04.2023.
 //
 
+import UIKit
 import RealmSwift
-import SwiftUI
-
 
 class Place: Object {
     
@@ -26,5 +25,4 @@ class Place: Object {
         self.imageData = imageData
         self.rating = rating
     }
-    //1
 }

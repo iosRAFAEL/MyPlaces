@@ -14,7 +14,6 @@ class NewPlaceViewController: UITableViewController {
     var imageIsChanged = false
     var currentRating = 0.0
 
-    
     @IBOutlet var saveButton: UIBarButtonItem!
     @IBOutlet var placeImage: UIImageView!
     @IBOutlet var placeName: UITextField!
@@ -37,14 +36,12 @@ class NewPlaceViewController: UITableViewController {
         
         cosmosView.didTouchCosmos = { rating in
             self.currentRating = rating
-            
         }
-        
     }
-    // MARK: Table view delegate
+    
+    // MARK: - Table view delegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
         if indexPath.row == 0 {
             
             let cameraIcon = UIImage(named: "camera")
@@ -77,10 +74,9 @@ class NewPlaceViewController: UITableViewController {
         }
     }
     
-    // MARK: Navigation
+    // MARK: - Navigation
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        
         guard
             let identifier = segue.identifier,
                 let mapVC = segue.destination as? MapViewController
@@ -97,9 +93,7 @@ class NewPlaceViewController: UITableViewController {
         }
     }
     
-    
     func savePlace() {
-        
         let image = imageIsChanged ? placeImage.image : UIImage(named: "imagePlaceholder")
         let imageData = image?.pngData()
         
@@ -109,7 +103,6 @@ class NewPlaceViewController: UITableViewController {
                              imageData: imageData,
                              rating: currentRating)
                              
-        
         if currentPlace != nil {
             try! realm.write {
                 currentPlace?.name = newPlace.name
@@ -123,10 +116,8 @@ class NewPlaceViewController: UITableViewController {
         }
     }
     
-    
     private func setupEditScreen() {
         if currentPlace != nil {
-            
             setupNavigationBar()
             imageIsChanged = true
             
@@ -140,7 +131,6 @@ class NewPlaceViewController: UITableViewController {
             placeType.text = currentPlace?.type
             cosmosView.rating = currentPlace.rating
         }
-        
     }
     
     private func setupNavigationBar() {
@@ -152,17 +142,15 @@ class NewPlaceViewController: UITableViewController {
         saveButton.isEnabled = true
     }
     
-    
     @IBAction func cancelAction(_ sender: Any) {
         dismiss(animated: true)
     }
 }
 
-// MARK: Text field delegate
+// MARK: - Text field delegate
 
 extension NewPlaceViewController: UITextFieldDelegate {
-    
-    // Скрываем клавиатуру по нажатию на Done
+    // Hide the keyboard on click Done
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
@@ -177,14 +165,12 @@ extension NewPlaceViewController: UITextFieldDelegate {
             saveButton.isEnabled = false
         }
     }
-    
 }
-// MARK: Work with image
+// MARK: - Work with image
 
 extension NewPlaceViewController: UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     func chooseImagePicker(source: UIImagePickerController.SourceType) {
-        
         if UIImagePickerController.isSourceTypeAvailable(source) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
@@ -203,7 +189,6 @@ extension NewPlaceViewController: UIImagePickerControllerDelegate, UINavigationC
         
         dismiss(animated: true)
     }
-    //1
 }
 
 extension NewPlaceViewController: MapViewControllerDelegate {

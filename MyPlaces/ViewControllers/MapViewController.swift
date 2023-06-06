@@ -8,7 +8,7 @@
 import UIKit
 import MapKit
 import CoreLocation
-//qq
+
 protocol MapViewControllerDelegate {
     func getAddress(_ address: String?)
 }
@@ -31,7 +31,7 @@ class MapViewController: UIViewController {
                     DispatchQueue.main.asyncAfter(deadline: .now() + 3) {
                         self.mapManager.showUserLocation(mapView: self.mapView)
                     }
-                }
+              }
         }
     }
     
@@ -67,7 +67,6 @@ class MapViewController: UIViewController {
     }
     
     private func setupMapView() {
-        
         goButton.isHidden = true
         
         mapManager.checkLocationServices(mapView: mapView, segueIdentifier: incomeSegueIdentifier) {
@@ -82,14 +81,9 @@ class MapViewController: UIViewController {
         }
     }
 }
-                
-        
-
-    
     extension MapViewController: MKMapViewDelegate {
         
         func mapView(_ mapView: MKMapView, viewFor annotation: MKAnnotation) -> MKAnnotationView? {
-            
             guard !(annotation is MKUserLocation) else { return nil }
             
             var annotationView = mapView.dequeueReusableAnnotationView(withIdentifier: annotationIdentifier) as? MKMarkerAnnotationView
@@ -119,7 +113,6 @@ class MapViewController: UIViewController {
                     self.mapManager.showUserLocation(mapView: self.mapView)
                 }
             }
-            
             geocoder.cancelGeocode()
             
             geocoder.reverseGeocodeLocation(center) { placemarks, error in
@@ -135,7 +128,6 @@ class MapViewController: UIViewController {
                 let buildNumber = placemark?.subThoroughfare
                 
                 DispatchQueue.main.async {
-                    
                     if streetName != nil && buildNumber != nil {
                         self.addressLabel.text = "\(streetName!), \(buildNumber!)"
                     } else if streetName != nil {
@@ -148,12 +140,9 @@ class MapViewController: UIViewController {
         }
         
         func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-            
             let renderer = MKPolylineRenderer(overlay: overlay as! MKPolyline)
             renderer.strokeColor = .blue
-            
             return renderer
-            
         }
     }
     
